@@ -1,24 +1,18 @@
 class Solution {
     public int minOperations(int[] nums) {
-        Stack<Integer> stack = new Stack<>();
-        int operations = 0;
-
-        for (int n : nums) {
-            // Step 1: Pop larger elements (decreasing height)
-            while (!stack.isEmpty() && stack.peek() > n) {
-                stack.pop();
+        Stack<Integer> st=new Stack<>();
+        int count=0;
+        for(int n:nums){
+            while(!st.isEmpty() && st.peek()>n){
+                st.pop();
             }
-
-            // Step 2: Ignore zeros (no operation needed)
-            if (n == 0) continue;
-
-            // Step 3: Push new heights (new operations)
-            if (stack.isEmpty() || stack.peek() < n) {
-                operations++;
-                stack.push(n);
+            if(n==0) continue;
+            if(st.isEmpty() || st.peek()<n)
+            {
+                count++;
+                st.push(n);
             }
         }
-
-        return operations;
+        return count;
     }
 }
