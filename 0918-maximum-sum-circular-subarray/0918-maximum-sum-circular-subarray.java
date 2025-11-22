@@ -1,33 +1,22 @@
 class Solution {
     public int maxSubarraySumCircular(int[] nums) {
-        int total = 0;
-        int maxEnding = nums[0], maxSoFar = nums[0];
-        int minEnding = nums[0], minSoFar = nums[0];
-
-        for (int i = 0; i < nums.length; i++) {
-            int x = nums[i];
-            total += x;
-
-            // Kadane for max subarray
-            if (i == 0) { // already initialized above
-                maxEnding = maxSoFar = x;
-                minEnding = minSoFar = x;
-                continue;
-            }
-            maxEnding = Math.max(x, maxEnding + x);
-            maxSoFar = Math.max(maxSoFar, maxEnding);
-
-            // Kadane for min subarray (similar but for minimum)
-            minEnding = Math.min(x, minEnding + x);
-            minSoFar = Math.min(minSoFar, minEnding);
+        int total=nums[0];
+        int currmax=nums[0];
+        int maxsum=nums[0];
+        int currmin=nums[0];
+        int minsum=nums[0];
+        for(int i=1;i<nums.length;i++){
+            total+=nums[i];
+            currmin=Math.min(currmin+nums[i],nums[i]);
+            minsum=Math.min(minsum,currmin);
+            currmax=Math.max(currmax+nums[i],nums[i]);
+            maxsum=Math.max(maxsum,currmax);
         }
-
-        // If all numbers are negative, maxSoFar == total (because minSoFar == total)
-        if (maxSoFar < 0) {
-            return maxSoFar;
+        if(maxsum<0){
+            return maxsum;
         }
-
-        // Otherwise, max of non-wrapping (maxSoFar) and wrapping (total - minSoFar)
-        return Math.max(maxSoFar, total - minSoFar);
+        int circularsum=total-minsum;
+        return Math.max(maxsum,circularsum);
+        
     }
 }
