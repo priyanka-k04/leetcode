@@ -1,23 +1,23 @@
-
-
 class Solution {
     public boolean hasIncreasingSubarrays(List<Integer> nums, int k) {
-        int cl = 1;   // current length of increasing subarray
-        int pl = 0;   // previous increasing length
-        int result = 0; // store max of valid subarray pair length
+        int n=nums.size();
+        for(int start=0;start+2*k<=n;start++){
+            boolean first=isIncreasing(nums,start,start+k);
+            boolean second=isIncreasing(nums,start+k,start+2*k);
 
-        for (int i = 1; i < nums.size(); i++) {
-            if (nums.get(i) > nums.get(i - 1)) {
-                cl += 1; // increasing, extend current length
-            } else {
-                pl = cl; // store previous length
-                cl = 1;  // reset current length
-            }
-
-            // Update result based on both lengths
-            result = Math.max(result, Math.max(cl / 2, Math.min(cl, pl)));
+            if(first&&second){
+            return true;
         }
-
-        return result >= k;
+    }
+        return false;
+        }
+        
+    boolean isIncreasing(List<Integer>nums,int s,int e){
+        for(int i=s+1;i<e;i++){
+            if(nums.get(i)<=nums.get(i-1)){
+                return false;
+            }
+        }
+        return true;
     }
 }
