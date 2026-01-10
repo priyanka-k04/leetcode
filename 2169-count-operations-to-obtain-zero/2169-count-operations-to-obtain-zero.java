@@ -1,20 +1,17 @@
 class Solution {
     public int countOperations(int num1, int num2) {
-        int operations = 0;
-        
-        while (num1 > 0 && num2 > 0) {
-            if (num1 >= num2) {
-                // Instead of subtracting one by one, we can calculate
-                // how many times we can subtract num2 from num1
-                operations += num1 / num2;
-                num1 = num1 % num2;
-            } else {
-                // Similarly for num2
-                operations += num2 / num1;
-                num2 = num2 % num1;
+        int operations =0;
+        while(num1>0 && num2>0){
+            if(num1>=num2){
+                operations+=num1/num2;
+                num1=num1%num2;
+            }
+            else{
+                operations+=num2/num1;
+                num2=num2%num1;
             }
         }
-        
         return operations;
+        
     }
 }
