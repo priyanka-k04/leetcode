@@ -1,14 +1,23 @@
 class Solution {
     public int findDuplicate(int[] nums) {
-      int arr[] = new int[nums.length+1];
-      for(int i:nums){
-        arr[i]++;
-      }
-      for(int i:nums){
-        if(arr[i]>=2){
-            return i;
+        int slow = nums[0];
+        int fast = nums[nums[0]];
+
+        // Phase 1: Find the meeting point
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
         }
-      }
-      return -1;
+
+        // Phase 2: Find the cycle entrance
+        int slow2 = 0;
+
+        while (slow2 != slow) {
+            slow2 = nums[slow2];
+            slow = nums[slow];
+        }
+
+        return slow;
     }
 }
+
